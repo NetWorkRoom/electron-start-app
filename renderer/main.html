@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Readit</title>
+    <link rel="stylesheet" href="../bower_components/bulma/css/bulma.min.css">
+    <link rel="stylesheet" href="../bower_components/font-awesome/css/all.min.css">
+    <link rel="stylesheet" href="./main.css">
+  </head>
+  <body>
+
+    <div class="panel">
+        <div class="panel-heading">
+          <div class="control is-grouped">
+
+            <p class="control add-btn">
+              <a class="button is-primary">
+                <span class="icon is-small">
+                  <i class="fas fa-plus"></i>
+                </span>
+              </a>
+            </p>
+
+            <p class="control is-expanded has-icon has-icon-right add-input">
+              <input class="input" id="search" type="text">
+              <span class="icon is-small">
+                <i class="fas fa-search" aria-hidden="true"></i>
+              </span>
+            </p>
+
+          </div> 
+        </div>
+
+        <div id="read-list" class="empty">
+          <p id="no-items" class="has-text-centered">No items</p>
+        </div>
+        
+      </div>     
+
+    <script>
+      // JQuery
+      $ = require('jquery');
+      // Main app script
+      require('./app.js');
+    </script>
+  </body>
+</html>

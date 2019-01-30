@@ -1,0 +1,17 @@
+.add-btn {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: block;
+	z-index: 1
+}
+
+.add-input {
+	margin-left: 44px;
+}
+
+#no-items {
+	padding: 2rem 0;
+	color: lightgray;
+	font-style: italic;
+}
