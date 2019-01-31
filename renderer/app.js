@@ -1,3 +1,3 @@
-// This file is required by the index.html file and will
-// be executed in the renderer process for that window.
-// All of the Node.js APIs are available in this process.
+// Этот файл подключается к файлу index.html и
+// написаный здесь код будет выполняться в процессе визуализации приложения.
+// Весь Node.js APIs доступен в этом процессе.

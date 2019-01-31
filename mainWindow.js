@@ -1,11 +1,13 @@
-// Modules
+// Подключаем модули Electron API
 const { BrowserWindow } = require('electron');
 
-// Browser instance
+// Экспортируем экземпляр браузера
 exports.win;
 
-// mainWindow createWindow fn
+// Экспортируем функцию createWindow с конфигурацией окна приложения 
 exports.createWindow = () => { 
+
+	// Создаем окно браузера.
 	this.win = new BrowserWindow({
 		width: 500,
 		height: 650,
@@ -18,47 +20,18 @@ exports.createWindow = () => {
 		}
 	});
 
-	// Devtools
-	this.win.webContents.openDevTools();
-
-	// Load main window content
+	// и загружаем файл index.html он содержит наше приложение.
 	this.win.loadURL(`file://${__dirname}/renderer/main.html`)
 
-	// Handle window closeв
+  // Открываем инструменты разработчика (DevTools). 
+  // Если необходимо раскомментируйте строку ниже
+	this.win.webContents.openDevTools();
+
+	 // Запускается при закрытии окна.
 	this.win.on('closed', () => { 
+    // После закрытия окна ,удаляются ранее созданные объекты 
+    // для организации работы приложения.
 		this.win = null;
 	})
 
-}
-
-
-
-
-
-
-function createWindow() {
-	// Create the browser window.
-	mainWindow = new BrowserWindow({
-		width: 800,
-		height: 600,
-		webPreferences: {
-			nodeIntegration: true,
-			webSecurity: false
-		}
-	});
-
-	// and load the index.html of the app.
-
-	mainWindow.loadFile(`${path.join(__dirname, "/renderer/main.html")}`);
-
-	// Open the DevTools.
-	mainWindow.webContents.openDevTools()
-
-	// Emitted when the window is closed.
-	mainWindow.on('closed', function () {
-		// Dereference the window object, usually you would store windows
-		// in an array if your app supports multi windows, this is the time
-		// when you should delete the corresponding element.
-		mainWindow = null;
-	})
 }

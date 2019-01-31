@@ -1,11 +1,16 @@
-// Modules to control application life and create native browser window
+// Модули для управления жизнью приложения и создания собственного окна браузера.
 const { app } = require('electron');
-const path = require('path');
+
+// Перерисовка окна при внесении изменений, без необходимости перезапускать проект. 
 require('electron-reload')(__dirname);
+
+// Для отделения кода работающего только для разработки, добавляем модуль electron-is-dev
 const isDev = require('electron-is-dev');
 
+// Подключаем mainWindow.js с объектом главного окна приложение
 const mainWindow = require('./mainWindow');
 
+// Для отключения сообщений о недостаточной безопасности добавляем строку
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 
 if (isDev) {
@@ -14,20 +19,20 @@ if (isDev) {
   console.log('Running in production');
 }
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
+// Этот метод будет вызван, когда электрон закончит
+// инициализацию и будет готов для создания окна приложения.
+// Некоторые API можно использовать только после этого события.
 app.on('ready', mainWindow.createWindow);
 
-// Quit when all windows are closed.
+// Выходим, когда все окна закрыты.
 app.on('window-all-closed', () => {
-  // On macOS it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
+// Для macOS является общим для всего приложения и его меню 
+  // пока пользователь явно не завершит работу с помощью Cmd + Q
   if (process.platform !== 'darwin')  app.quit();
 })
 
 app.on('activate', () => {
-  // On macOS it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
+  // На macOS обычно повторно создают окно в приложении, когда
+  // dock значок нажат и нет никаких других открытых окон.
   if (mainWindow === null)  mainWindow.createWindow();
 })
