@@ -1,6 +1,10 @@
 // Модули для управления жизнью приложения и создания собственного окна браузера.
 const { app, ipcMain } = require('electron');
 
+// Подключаем mainWindow.js с объектом главного окна приложение
+const mainWindow = require('./mainWindow');
+const readItem = require('./readItem');
+
 // Перерисовка окна при внесении изменений, без необходимости перезапускать проект. 
 require('electron-reload')(__dirname);
 
@@ -8,18 +12,16 @@ require('electron-reload')(__dirname);
 ipcMain.on('new-item', (e, itemURL) => {
   // console.log('The resulting entry in the main process');
   // console.log(itemURL);
-
-  setTimeout(() => { 
-    e.sender.send('new-item-success', 'new read item');
-  }, 2000)
+  // Получаем прочтеные записи с readItem модулем
+  readItem(itemURL, (item) => {
+    console.log(item);
+    e.sender.send('new-item-success', item);
+  });
 
 });
 
 // Для отделения кода работающего только для разработки, добавляем модуль electron-is-dev
 const isDev = require('electron-is-dev');
-
-// Подключаем mainWindow.js с объектом главного окна приложение
-const mainWindow = require('./mainWindow');
 
 // Для отключения сообщений о недостаточной безопасности добавляем строку
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
