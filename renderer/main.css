@@ -2,6 +2,19 @@ html, body {
 	overflow: visible;
 }
 
+/* Элементы фреймворка */
+.panel {
+	padding-top: 52px;
+	margin-bottom: 0 !important;
+}
+
+.panel-heading {
+	position: fixed;
+	width: 100%;
+	margin-top: -52px;
+	z-index: 1;
+}
+
 /* Шапка приложения */
 .add-btn {
 	position: absolute;
@@ -35,4 +48,9 @@ html, body {
 .modal-content {
 	padding: 0 20px;
 	overflow: visible
+}
+
+/* Список записей */
+.is-shadow {
+	box-shadow: 1px 1px 3px rgba(0,0,0,.3);
 }

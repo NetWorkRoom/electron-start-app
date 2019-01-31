@@ -14,10 +14,8 @@ ipcMain.on('new-item', (e, itemURL) => {
   // console.log(itemURL);
   // Получаем прочтеные записи с readItem модулем
   readItem(itemURL, (item) => {
-    console.log(item);
     e.sender.send('new-item-success', item);
   });
-
 });
 
 // Для отделения кода работающего только для разработки, добавляем модуль electron-is-dev
