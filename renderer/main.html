@@ -9,13 +9,13 @@
     <link rel="stylesheet" href="./main.css">
   </head>
   <body>
-    
+
     <div class="panel">
         <div class="panel-heading">
           <div class="control is-grouped">
 
             <p class="control add-btn">
-              <a class="button is-primary">
+              <a class="button is-primary open-add-modal">
                 <span class="icon is-small">
                   <i class="fas fa-plus"></i>
                 </span>
@@ -36,7 +36,35 @@
           <p id="no-items" class="has-text-centered">No items</p>
         </div>
         
-      </div>     
+      </div>  
+
+      <!-- Модальное окно -->
+      <div id="add-modal" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+
+          <p class="control has-icon has-icon-right">
+            <input type="text" class="input is-medium" id="item-input" placeholder="Enter URL">
+            <span class="icon">
+              <i class="fas fa-globe"></i>
+            </span>
+          </p>
+
+          <div class="control btn-grouped">
+            <p class="control">
+              <a class="button is-primary" id="add-button">
+                <span class="icon is-spall">
+                  <i class="fas fa-plus"></i>
+                </span>
+                <span><strong>Add Item</strong></span>
+              </a>
+            </p>
+            <p class="control">
+              <a class="button close-add-modal">Cancel</a>
+            </p>
+          </div>
+        </div>        
+      </div>
 
     <script>
       // Подключаем Jquery

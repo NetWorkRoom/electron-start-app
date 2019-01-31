@@ -1,8 +1,19 @@
 // Модули для управления жизнью приложения и создания собственного окна браузера.
-const { app } = require('electron');
+const { app, ipcMain } = require('electron');
 
 // Перерисовка окна при внесении изменений, без необходимости перезапускать проект. 
 require('electron-reload')(__dirname);
+
+// Слушатель для полученяи новых записей
+ipcMain.on('new-item', (e, itemURL) => {
+  // console.log('The resulting entry in the main process');
+  // console.log(itemURL);
+
+  setTimeout(() => { 
+    e.sender.send('new-item-success', 'new read item');
+  }, 2000)
+
+});
 
 // Для отделения кода работающего только для разработки, добавляем модуль electron-is-dev
 const isDev = require('electron-is-dev');
