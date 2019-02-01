@@ -2,6 +2,18 @@
 const { ipcRenderer } = require('electron');
 const items = require('./items');
 
+// Перемещение по выбранному элементу с помощью клавиш вверх/вниз
+$(document).keydown((e) => { 
+	switch (e.key) { 
+		case 'ArrowUp':
+			items.changeItem('up')
+			break;
+		case 'ArrowDown':
+			items.changeItem('down')
+			break;	
+	}
+})
+
 // Открытие модального окна #add-modal
 $('.open-add-modal').click(() => {
 	$('#add-modal').addClass('is-active');
@@ -29,7 +41,7 @@ $('#add-button').click(() => {
 	// Получение URL из поля ввода
 	let newItemURL = $('#item-input').val();
 
-	if (newItemURL) { 
+	if (newItemURL) {
 
 		// При отправке новой записи блокируем кнопку и поле ввода текста
 		$('#item-input').prop('disabled', true);
@@ -39,9 +51,9 @@ $('#add-button').click(() => {
 		// Отправка URL в главный процесс с помощью ipcRenderer
 		ipcRenderer.send('new-item', newItemURL);
 	}
-})
+});
 
-ipcRenderer.on('new-item-success', (e, item) => { 	
+ipcRenderer.on('new-item-success', (e, item) => {
 	// Добавить элемент в массив элементов 
 	items.toreadItems.push(item);
 	// Сохранить элементы
@@ -53,13 +65,34 @@ ipcRenderer.on('new-item-success', (e, item) => {
 	$('#item-input').prop('disabled', false).val('');
 	$('#add-button').removeClass('is-loading');
 	$('.close-add-modal').removeClass('is-disabled');
-})
+
+	// Если добавляется первый элемент, выбираем его
+	if (items.toreadItems.length === 1) { 
+		$('.read-item:first()').addClass('is-active');
+	}
+});
 
 // Слушатель события добавления URL по нажатию клавиши Enter
-$('#item-input').keyup((e) => { 
+$('#item-input').keyup((e) => {
 	if (e.key === 'Enter') $('#add-button').click()
-})
+});
+
+// Фильтр записей по названию
+$('#search').keyup((e) => {
+
+	// Получение строки из #search
+	let filter = $(e.currentTarget).val();
+
+	$('.read-item').each((index, element) => { 
+		$(element).text().toLocaleLowerCase().includes(filter) ? $(element).show() : $(element).hide();
+	})
+		
+	
+});
 
 // Добавить элементы при загрузке приложения
-if (items.toreadItems.length)
+if (items.toreadItems.length) {
 	items.toreadItems.forEach(items.addItem);
+	$('.read-item:first()').addClass('is-active');
+}
+	

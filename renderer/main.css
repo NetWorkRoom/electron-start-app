@@ -15,6 +15,14 @@ html, body {
 	z-index: 1;
 }
 
+.read-item {
+	border-left-width: 10px;
+}
+
+.read-item.is-active {
+	background-color: #fafafa
+}
+
 /* Шапка приложения */
 .add-btn {
 	position: absolute;
