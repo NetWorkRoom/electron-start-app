@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../bower_components/bulma/css/bulma.min.css">
+	<link rel="stylesheet" href="../bower_components/font-awesome/css/all.min.css">
+	<link rel="stylesheet" href="./main.css">
+	<style>
+		html, body, webview {
+			height: 100%;
+		}
+	</style>
+</head>
+<body>
+
+	<section id="loader" class="hero is-fullheight has-text-centered">
+		<div class="hero-body">
+			<div class="container">
+				<div class="busy">
+					<div class="title">
+						<span class="icon is-large">
+							<i class="fas fa-circle-notch fa-spin fa-fw"></i>	
+						</span>
+					</div>
+				</div>
+
+				<div class="failed is-hidden">
+					<h1 class="title">Failed to load</h1>
+					<h2 class="subtitle">Please check you Network Connection</h2>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<a id="mark-read" class="is-hidden">
+		<div class="block">
+			<span class="tag is-large is-primary">
+				<span class="icon">
+					<i class="fas fa-check fa-inverse"></i>
+				</span>&nbsp; Read 
+			</span>
+		</div>
+	</a>
+
+	<webview src="about:blank"></webview>	
+
+	<script>
+		// Подключаем Jquery		
+		$ = require('jquery');
+
+		// Подключем jquery-string модули
+		const queryString = require('query-string');
+		
+		// Парсим строку запроса 
+		const queryParams = queryString.parse(location.search);
+
+		// Получаем index записи
+		let itemIndex = queryParams.itemIndex;
+
+		// Получаем строку запроса 'url'
+		let url = decodeURIComponent(queryParams.url);
+
+		// Загрузка содержимого элемента после готовности в webview 
+		$('webview').one('dom-ready', (e) => {
+			
+			// Загружаем содержимое элемента по url-адресу в webview 
+			e.currentTarget.loadURL(url);
+		}).one('did-finish-load', () => {
+			// Скрываем отображение прелоадера, когда все загружено
+			$('#loader').fadeOut(100);
+			// Показываем кнопку 'Ready'
+			$('#mark-read').removeClass('is-hidden');
+
+			// Обработка неудачной загрузки		
+		}).on('did-fail-load', () => {
+			$('#mark-read').addClass('is-hidden');
+			$('#loader .busy').addClass('is-hidden');
+			$('#loader').fadeIn(100);
+			$('#loader .failed').removeClass('is-hidden');
+		});	
+
+		// Слушатель события по клику (Удаление записи)
+		$('#mark-read').click(() => {
+			// Обращаемся к родительскому window
+			window.opener.eval(`deleteItem(${itemIndex})`);
+			window.close();
+		});
+	</script>
+</body>
+</html>

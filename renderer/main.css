@@ -17,6 +17,7 @@ html, body {
 
 .read-item {
 	border-left-width: 10px;
+	-webkit-user-select: none; 
 }
 
 .read-item.is-active {
@@ -61,4 +62,27 @@ html, body {
 /* Список записей */
 .is-shadow {
 	box-shadow: 1px 1px 3px rgba(0,0,0,.3);
+}
+
+/* Прелоадер */
+#loader {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: #fafafa;
+	z-index: 9999;
+}
+#loader .fas {
+	color: #00d1b2
+}
+
+/* Удаление записи */
+#mark-read {
+	position: absolute;
+	bottom: 1rem;
+	right: 2rem;
+}
+
+#mark-read .tag {
+	box-shadow: 3px 3px 5px rgba(0,0,0,.25);
 }

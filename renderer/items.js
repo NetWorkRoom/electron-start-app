@@ -28,6 +28,34 @@ exports.changeItem = (direction) => {
 	}
 }
 
+// Фенкции Window 
+// Удаление по индексу записи
+window.deleteItem = (i) => { 
+	console.log(i);
+	// Удаление записи из DOM
+	$('.read-item').eq(i).remove();
+
+	// Удаление из массива toreadItems
+	this.toreadItems = this.toreadItems.filter((item, index) => {
+		return index != i;
+	});
+
+	// Обновляем состояние storage
+	this.saveItems();
+
+	// Выбираем предыдущую запись или none если список пуст
+	if (this.toreadItems.length) {
+		// Если первый элемент был удален, 
+		// выбераем новый первый элемент в списке, иначе предыдущий элемент
+		let newIndex = (i === 0) ? 0 : i - 1;
+		// Назначаем активный класс новому элементу
+		$('.read-item').eq(newIndex).addClass('is-active');
+	// Если иначе показываем сообщение 'no items'
+	} else { 
+		$('#no-items').show();
+	}
+}
+
 // Открываем элемент для чтения
 exports.openItem = () => { 
 
@@ -37,11 +65,19 @@ exports.openItem = () => {
 	// Получаем выбранный элемент
 	let targetItem = $('.read-item.is-active');
 
-	// Получаем url-адрес содержимого элемента
-	let contentURL = targetItem.data('url');
+	// Получаем url-адрес содержимого элемента (encoded)
+	let contentURL = encodeURIComponent(targetItem.data('url'));
+
+	// Получаем индекс элемента для передачи в окно прокси
+	let itemIndex = targetItem.index() - 1;
 	
-	console.log('Opening Item');
-	console.log(contentURL);
+	let readerWinURL = `file://${__dirname}/reader.html?url=${contentURL}&itemIndex=${itemIndex}`;
+	// console.log('Opening Item');
+	// console.log(contentURL);
+
+	// Открываем элемент в новом окне
+	let readerWin = window.open(readerWinURL, targetItem.data('title'))
+
 }
 
 // Добавляем новый элемент
@@ -51,7 +87,7 @@ exports.addItem = (item) => {
 	$('#no-items').hide();
 
 	// Новый элемент html
-	let itemHTML = `<a class="panel-block read-item" data-url="${item.url}">
+	let itemHTML = `<a class="panel-block read-item" data-url="${item.url}" data-title="${item.title}">
 										<figure class="image is-shadow is-64x64 thumb">
 											<img src="${item.screenshot}">
 										</figure>
