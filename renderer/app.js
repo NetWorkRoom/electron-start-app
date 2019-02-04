@@ -1,6 +1,7 @@
 // Подключаем модули Electron.js
 const { ipcRenderer } = require('electron');
 const items = require('./items');
+const menu = require('./menu');
 
 // Перемещение по выбранному элементу с помощью клавиш вверх/вниз
 $(document).keydown((e) => { 

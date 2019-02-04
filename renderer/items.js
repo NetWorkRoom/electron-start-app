@@ -30,7 +30,12 @@ exports.changeItem = (direction) => {
 
 // Фенкции Window 
 // Удаление по индексу записи
-window.deleteItem = (i) => { 
+window.deleteItem = (i = false) => { 
+
+	// Установливаем значение i в активный элемент, если не передается в качестве аргумента
+	if (i === false) i = ($('.read-item.is-active').index() - 1);
+	
+
 	console.log(i);
 	// Удаление записи из DOM
 	$('.read-item').eq(i).remove();
@@ -56,8 +61,19 @@ window.deleteItem = (i) => {
 	}
 }
 
+// Открываем элемент в браузере по умолчанию
+window.openInBrowser = () => { 
+	// Только если элементы существуют
+	if (!this.toreadItems) return;
+
+	// Получаем выбраную запись
+	let targetItem = $('.read-item.is-active');
+	require('electron').shell.openExternal(targetItem.data('url'));
+	
+}
+
 // Открываем элемент для чтения
-exports.openItem = () => { 
+window.openItem = () => { 
 
 	// Только если элементы были добавлены
 	if (!this.toreadItems.length) return;
@@ -76,8 +92,7 @@ exports.openItem = () => {
 	// console.log(contentURL);
 
 	// Открываем элемент в новом окне
-	let readerWin = window.open(readerWinURL, targetItem.data('title'))
-
+	let readerWin = window.open(readerWinURL, targetItem.data('title'));
 }
 
 // Добавляем новый элемент
@@ -101,5 +116,5 @@ exports.addItem = (item) => {
 	$('.read-item')
 		.off('click, dblclick')
 		.on('click', this.selectItem)
-		.on('dblclick', this.openItem);
+		.on('dblclick', window.openItem);
 }
