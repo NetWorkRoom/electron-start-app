@@ -1,12 +1,22 @@
 // Модули для управления жизнью приложения и создания собственного окна браузера.
 const { app, ipcMain } = require('electron');
 
+// Для отделения кода работающего только для разработки, добавляем модуль electron-is-dev
+const isDev = require('electron-is-dev');
+
+if (isDev) {
+  // Для отключения сообщений о недостаточной безопасности добавляем строку
+  process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
+  // Перерисовка окна при внесении изменений, без необходимости перезапускать проект. 
+  require('electron-reload')(__dirname);
+  console.log('Running in development');
+} else { 
+  console.log('Running in production');
+}
+
 // Подключаем mainWindow.js с объектом главного окна приложение
 const mainWindow = require('./mainWindow');
 const readItem = require('./readItem');
-
-// Перерисовка окна при внесении изменений, без необходимости перезапускать проект. 
-require('electron-reload')(__dirname);
 
 // Слушатель для полученяи новых записей
 ipcMain.on('new-item', (e, itemURL) => {
@@ -17,18 +27,6 @@ ipcMain.on('new-item', (e, itemURL) => {
     e.sender.send('new-item-success', item);
   });
 });
-
-// Для отделения кода работающего только для разработки, добавляем модуль electron-is-dev
-const isDev = require('electron-is-dev');
-
-// Для отключения сообщений о недостаточной безопасности добавляем строку
-process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
-
-if (isDev) {
-  console.log('Running in development');
-} else {
-  console.log('Running in production');
-}
 
 // Этот метод будет вызван, когда электрон закончит
 // инициализацию и будет готов для создания окна приложения.

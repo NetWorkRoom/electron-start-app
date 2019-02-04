@@ -1,21 +1,11 @@
 {
-  "name": "electron-quick-start",
+  "name": "Readit",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
-  "main": "main.js",
-  "scripts": {
-    "start": "electron ."
-  },
+  "description": "Electron Project for Test",
+  "author": "NetWorkRoom",
   "repository": "https://github.com/electron/electron-quick-start",
-  "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
-  ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
+  "homepage": "https://networkroom.ru",
+  "main": "main.js",
   "devDependencies": {
     "devtron": "^1.4.0",
     "electron": "^4.0.2",
@@ -25,5 +15,8 @@
     "electron-is-dev": "^1.0.1",
     "jquery": "^3.3.1",
     "query-string": "^6.2.0"
+  },
+  "scripts": {
+    "start": "electron ."
   }
 }

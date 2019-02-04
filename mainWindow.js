@@ -1,6 +1,9 @@
 // Подключаем модули Electron API
 const { BrowserWindow } = require('electron');
 
+// Для отделения кода работающего только для разработки, добавляем модуль electron-is-dev
+const isDev = require('electron-is-dev');
+
 // Экспортируем экземпляр браузера
 exports.win;
 
@@ -14,6 +17,7 @@ exports.createWindow = () => {
 		minWidth: 350,
 		maxWidth: 650,
 		minHeight: 310,
+		icon: `${__dirname}/icon/icon.ico`,
 		webPreferences: {
 			nodeIntegration: true,
 			webSecurity: false
@@ -24,8 +28,8 @@ exports.createWindow = () => {
 	this.win.loadURL(`file://${__dirname}/renderer/main.html`)
 
   // Открываем инструменты разработчика (DevTools). 
-  // Если необходимо раскомментируйте строку ниже
-	this.win.webContents.openDevTools();
+	// Если необходимо раскомментируйте строку ниже
+	if (isDev) this.win.webContents.openDevTools();
 
 	 // Запускается при закрытии окна.
 	this.win.on('closed', () => { 

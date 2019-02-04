@@ -284,7 +284,7 @@ debug@2.6.9, debug@^2.1.2, debug@^2.1.3, debug@^2.2.0, debug@^2.3.3:
   dependencies:
     ms "2.0.0"
 
-debug@^3.0.0:
+debug@^3.0.0, debug@^3.1.0:
   version "3.2.6"
   resolved "https://registry.yarnpkg.com/debug/-/debug-3.2.6.tgz#e83d17de16d8a7efb7717edbe5fb10135eee629b"
   dependencies:
@@ -371,6 +371,16 @@ electron-reload@^1.4.0:
   resolved "https://registry.yarnpkg.com/electron-reload/-/electron-reload-1.4.0.tgz#00154268c936fa17b496fdb1728434c747e1d29a"
   dependencies:
     chokidar "^2.0.4"
+
+electron-wix-msi@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/electron-wix-msi/-/electron-wix-msi-2.1.1.tgz#fb8f42326b3f243004f9abacbb8e6d9b9dab6668"
+  dependencies:
+    debug "^3.1.0"
+    fs-extra "^7.0.0"
+    klaw "^3.0.0"
+    lodash "^4.17.10"
+    uuid "^3.3.2"
 
 electron@^4.0.2:
   version "4.0.3"
@@ -509,6 +519,14 @@ fs-extra@^4.0.1:
     jsonfile "^4.0.0"
     universalify "^0.1.0"
 
+fs-extra@^7.0.0:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-7.0.1.tgz#4f189c44aa123b895f722804f55ea23eadc348e9"
+  dependencies:
+    graceful-fs "^4.1.2"
+    jsonfile "^4.0.0"
+    universalify "^0.1.0"
+
 fs-minipass@^1.2.5:
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/fs-minipass/-/fs-minipass-1.2.5.tgz#06c277218454ec288df77ada54a03b8702aacb9d"
@@ -571,7 +589,7 @@ glob@^7.1.3:
     once "^1.3.0"
     path-is-absolute "^1.0.0"
 
-graceful-fs@^4.1.11, graceful-fs@^4.1.2, graceful-fs@^4.1.6:
+graceful-fs@^4.1.11, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.1.9:
   version "4.1.15"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.15.tgz#ffb703e1066e8a0eeaa4c8b80ba9253eeefbfb00"
 
@@ -873,6 +891,12 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.2.tgz#01146b36a6218e64e58f3a8d66de5d7fc6f6d051"
 
+klaw@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/klaw/-/klaw-3.0.0.tgz#b11bec9cf2492f06756d6e809ab73a2910259146"
+  dependencies:
+    graceful-fs "^4.1.9"
+
 load-json-file@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/load-json-file/-/load-json-file-1.1.0.tgz#956905708d58b4bab4c2261b04f59f31c99374c0"
@@ -886,6 +910,10 @@ load-json-file@^1.0.0:
 lodash.debounce@^4.0.8:
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
+
+lodash@^4.17.10:
+  version "4.17.11"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
 
 loud-rejection@^1.0.0:
   version "1.6.0"

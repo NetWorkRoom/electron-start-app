@@ -35,7 +35,6 @@ window.deleteItem = (i = false) => {
 	// Установливаем значение i в активный элемент, если не передается в качестве аргумента
 	if (i === false) i = ($('.read-item.is-active').index() - 1);
 	
-
 	console.log(i);
 	// Удаление записи из DOM
 	$('.read-item').eq(i).remove();
